@@ -17,7 +17,7 @@ describe('Central de Atendimento ao Cliente TAT', ()=> {
         cy.get('input[id="email"]').type('gabrielvitorsiqueira53@gmail.com')
         cy.get('input[id="phone"]').type('998645631')
         cy.get('#open-text-area').type(longText, {delay: 0})
-        cy.get('button[type=submit]').click()
+        cy.contains('button', 'Enviar').click()
 
         cy.get('.success').should('be.visible')
     })
@@ -26,9 +26,9 @@ describe('Central de Atendimento ao Cliente TAT', ()=> {
         cy.get('input[id="firstName"]').type('Gabriel Vitor')
         cy.get('input[id="lastName"]').type('Siqueira')
         cy.get('input[id="email"]').type('gabrielvitorsiqueira53@gmail,com')
-        cy.get('input[id="phone"]').type('998645631')
+        cy.get('input[id="phone"]').type(998645631)
         cy.get('#open-text-area').type(longText, {delay: 0})
-        cy.get('button[type=submit]').click()
+        cy.contains('button', 'Enviar').click()
 
         cy.get('.error').should('be.visible')
     })
@@ -62,12 +62,33 @@ describe('Central de Atendimento ao Cliente TAT', ()=> {
     })
 
     it('exibe mensagem de erro ao submeter o formulário sem preencher os campos obrigatórios', function(){
-        cy.get('button[type=submit]').click()
-        cy.get('#error').should('be.visible ')
+        cy.contains('button', 'Enviar').click()
+        cy.get('.error').should('be.visible')
     })
 
-    it.only('', function(){
-
+    it('envia o formuário com sucesso usando um comando customizado', function(){
+        cy.fillMandatoryFieldsAndSubmit() //comando customizado que economiza duplicacao de codigo
+        cy.get('.success').should('be.visible')
     })
 
+    it('Usar o comando contains() para realizar os testes de login no botao de submit', function(){
+        cy.get('div').contains('Nome').type('Gabriel Vitor') //exemplo de teste
+        cy.contains('button', 'Enviar').click()
+    })
+
+    it('Seleciona um produto(Youtube) por seu texto',function(){
+        cy.get('select').select('YouTube').should('have.value', 'youtube') //buscar o elemento pelo seu texto e verificar a sua tag value
+    })
+
+    it('seleciona um produto (Mentoria) por seu valor (value)', function(){
+        cy.get('select').select('mentoria').should('have.value', 'mentoria') //buscar pela tag value ao inves do texto e verificar com a tag value
+    })
+
+    it('seleciona um produto (Blog) por seu índice', function(){
+        cy.get('select').select(1).should('have.value', 'blog') //colocar os elementos como um array e percorrer como um vetor buscando o indice
+    })
+
+    it.only('Testar o comando personalizado para a categoria Produto', function(){
+        cy.fillMandatoryFieldsofProduct()
+    })
   })

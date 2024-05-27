@@ -1,25 +1,14 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+Cypress.Commands.add('fillMandatoryFieldsAndSubmit', function(){
+    cy.get('input[id="firstName"]').type('Gabriel Vitor')
+    cy.get('input[id="lastName"]').type('Siqueira')
+    cy.get('input[id="email"]').type('gabrielvitorsiqueira53@gmail.com')
+    cy.get('input[id="phone"]').type('998645631')
+    cy.get('#open-text-area').type('Teste')
+    cy.contains('button', 'Enviar').click()
+})
+
+Cypress.Commands.add('fillMandatoryFieldsofProduct', function(){
+    cy.get('select').select('YouTube').should('have.value', 'youtube')
+    cy.get('select').select('Mentoria').should('have.value', 'mentoria')
+    cy.get('select').select(1).should('have.value', 'blog')
+}) 
