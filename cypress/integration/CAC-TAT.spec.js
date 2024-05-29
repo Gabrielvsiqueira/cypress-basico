@@ -91,4 +91,19 @@ describe('Central de Atendimento ao Cliente TAT', ()=> {
     it.only('Testar o comando personalizado para a categoria Produto', function(){
         cy.fillMandatoryFieldsofProduct()
     })
+
+    it('Marca o tipo de atendimento "Feedback"', function(){
+        cy.get('[type="radio"][value = "feedback"]')
+        .check()
+        .should('have.value', 'feedback')
+    })
+
+    it.only('Marca cada tipo de atendimento', function(){
+       cy.get('[type="radio"]').should('have.length', 3)
+        .each(function($radio){
+            cy.wrap($radio).check()
+            cy.wrap($radio).should('be.checked')
+         })
   })
+
+})
