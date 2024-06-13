@@ -10,7 +10,7 @@ describe('Central de Atendimento ao Cliente TAT', ()=> {
         cy.title().should('be.equal','Central de Atendimento ao Cliente TAT')
     })
 
-    it('preenche os campos obrigatórios e envia o formulário', () => {
+    it('preenche os campos de inputs obrigatórios e envia o formulário', () => {
         
         cy.get('input[id="firstName"]').type('Gabriel Vitor')
         cy.get('input[id="lastName"]').type('Siqueira')
@@ -43,7 +43,8 @@ describe('Central de Atendimento ao Cliente TAT', ()=> {
         cy.get('input[id="firstName"]').type('Gabriel Vitor')
         cy.get('input[id="lastName"]').type('Siqueira')
         cy.get('input[id="email"]').type('gabrielvitorsiqueira53@gmail,com')
-        cy.get('input[id="phone"]').type()
+        cy.get('#phone-checkbox').check()
+        cy.contains('button', 'Enviar').click()
 
         cy.get('.error').should('be.visible')
     })
@@ -76,6 +77,16 @@ describe('Central de Atendimento ao Cliente TAT', ()=> {
         cy.contains('button', 'Enviar').click()
     })
 
+    it('marca ambos checkboxes, depois desmarca o último', function(){
+        cy.get('#email-checkbox').check()
+        cy.get('#phone-checkbox').check()
+        cy.get('#phone-checkbox').uncheck()
+    })
+
+    it.only('Seleciona um arquivo da pasta fixtures', function(){
+        cy.get('#file-upload').selectFile('cypress/fixtures/example.json')
+    })
+  })
     it('Seleciona um produto(Youtube) por seu texto',function(){
         cy.get('select').select('YouTube').should('have.value', 'youtube') //buscar o elemento pelo seu texto e verificar a sua tag value
     })
