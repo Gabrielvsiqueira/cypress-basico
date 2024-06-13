@@ -82,4 +82,8 @@ describe('Central de Atendimento ao Cliente TAT', ()=> {
         cy.get('#phone-checkbox').check()
         cy.get('#phone-checkbox').uncheck()
     })
+
+    it.only('Seleciona um arquivo da pasta fixtures', function(){
+        cy.get('#file-upload').selectFile('cypress/fixtures/example.json')
+    })
   })
