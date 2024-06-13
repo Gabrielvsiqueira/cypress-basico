@@ -10,7 +10,7 @@ describe('Central de Atendimento ao Cliente TAT', ()=> {
         cy.title().should('be.equal','Central de Atendimento ao Cliente TAT')
     })
 
-    it('preenche os campos obrigatórios e envia o formulário', () => {
+    it('preenche os campos de inputs obrigatórios e envia o formulário', () => {
         
         cy.get('input[id="firstName"]').type('Gabriel Vitor')
         cy.get('input[id="lastName"]').type('Siqueira')
@@ -43,7 +43,8 @@ describe('Central de Atendimento ao Cliente TAT', ()=> {
         cy.get('input[id="firstName"]').type('Gabriel Vitor')
         cy.get('input[id="lastName"]').type('Siqueira')
         cy.get('input[id="email"]').type('gabrielvitorsiqueira53@gmail,com')
-        cy.get('input[id="phone"]').type()
+        cy.get('#phone-checkbox').check()
+        cy.contains('button', 'Enviar').click()
 
         cy.get('.error').should('be.visible')
     })
@@ -61,7 +62,7 @@ describe('Central de Atendimento ao Cliente TAT', ()=> {
         cy.get('#open-text-area').clear().should('have.value', '')
     })
 
-    it.only('exibe mensagem de erro ao submeter o formulário sem preencher os campos obrigatórios', function(){
+    it('exibe mensagem de erro ao submeter o formulário sem preencher os campos obrigatórios', function(){
         cy.contains('button', 'Enviar').click()
         cy.get('.error').should('be.visible')
     })
@@ -74,5 +75,11 @@ describe('Central de Atendimento ao Cliente TAT', ()=> {
     it('Usar o comando contains() para realizar os testes de login no botao de submit', function(){
         cy.get('div').contains('Nome').type('Gabriel Vitor') //exemplo de teste
         cy.contains('button', 'Enviar').click()
+    })
+
+    it('marca ambos checkboxes, depois desmarca o último', function(){
+        cy.get('#email-checkbox').check()
+        cy.get('#phone-checkbox').check()
+        cy.get('#phone-checkbox').uncheck()
     })
   })
