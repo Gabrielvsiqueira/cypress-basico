@@ -77,16 +77,6 @@ describe('Central de Atendimento ao Cliente TAT', ()=> {
         cy.contains('button', 'Enviar').click()
     })
 
-    it('marca ambos checkboxes, depois desmarca o último', function(){
-        cy.get('#email-checkbox').check()
-        cy.get('#phone-checkbox').check()
-        cy.get('#phone-checkbox').uncheck()
-    })
-
-    it.only('Seleciona um arquivo da pasta fixtures', function(){
-        cy.get('#file-upload').selectFile('cypress/fixtures/example.json')
-    })
-  })
     it('Seleciona um produto(Youtube) por seu texto',function(){
         cy.get('select').select('YouTube').should('have.value', 'youtube') //buscar o elemento pelo seu texto e verificar a sua tag value
     })
@@ -99,7 +89,7 @@ describe('Central de Atendimento ao Cliente TAT', ()=> {
         cy.get('select').select(1).should('have.value', 'blog') //colocar os elementos como um array e percorrer como um vetor buscando o indice
     })
 
-    it.only('Testar o comando personalizado para a categoria Produto', function(){
+    it('Testar o comando personalizado para a categoria Produto', function(){
         cy.fillMandatoryFieldsofProduct()
     })
 
@@ -109,12 +99,21 @@ describe('Central de Atendimento ao Cliente TAT', ()=> {
         .should('have.value', 'feedback')
     })
 
-    it.only('Marca cada tipo de atendimento', function(){
+    it('Marca cada tipo de atendimento', function(){
        cy.get('[type="radio"]').should('have.length', 3)
         .each(function($radio){
             cy.wrap($radio).check()
             cy.wrap($radio).should('be.checked')
          })
-  })
+    })
 
+  it('marca ambos checkboxes, depois desmarca o último', function(){
+    cy.get('#email-checkbox').check()
+    cy.get('#phone-checkbox').check()
+    cy.get('#phone-checkbox').uncheck()
+    })
+
+    it.only('Seleciona um arquivo da pasta fixtures', function(){
+    cy.get('#file-upload').selectFile('cypress/fixtures/example.json')
+    }) 
 })
