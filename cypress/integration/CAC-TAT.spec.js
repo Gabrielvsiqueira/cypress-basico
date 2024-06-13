@@ -87,3 +87,34 @@ describe('Central de Atendimento ao Cliente TAT', ()=> {
         cy.get('#file-upload').selectFile('cypress/fixtures/example.json')
     })
   })
+    it('Seleciona um produto(Youtube) por seu texto',function(){
+        cy.get('select').select('YouTube').should('have.value', 'youtube') //buscar o elemento pelo seu texto e verificar a sua tag value
+    })
+
+    it('seleciona um produto (Mentoria) por seu valor (value)', function(){
+        cy.get('select').select('mentoria').should('have.value', 'mentoria') //buscar pela tag value ao inves do texto e verificar com a tag value
+    })
+
+    it('seleciona um produto (Blog) por seu índice', function(){
+        cy.get('select').select(1).should('have.value', 'blog') //colocar os elementos como um array e percorrer como um vetor buscando o indice
+    })
+
+    it.only('Testar o comando personalizado para a categoria Produto', function(){
+        cy.fillMandatoryFieldsofProduct()
+    })
+
+    it('Marca o tipo de atendimento "Feedback"', function(){
+        cy.get('[type="radio"][value = "feedback"]')
+        .check()
+        .should('have.value', 'feedback')
+    })
+
+    it.only('Marca cada tipo de atendimento', function(){
+       cy.get('[type="radio"]').should('have.length', 3)
+        .each(function($radio){
+            cy.wrap($radio).check()
+            cy.wrap($radio).should('be.checked')
+         })
+  })
+
+})

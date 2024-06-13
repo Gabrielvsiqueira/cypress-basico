@@ -6,3 +6,9 @@ Cypress.Commands.add('fillMandatoryFieldsAndSubmit', function(){
     cy.get('#open-text-area').type('Teste')
     cy.contains('button', 'Enviar').click()
 })
+
+Cypress.Commands.add('fillMandatoryFieldsofProduct', function(){
+    cy.get('select').select('YouTube').should('have.value', 'youtube')
+    cy.get('select').select('Mentoria').should('have.value', 'mentoria')
+    cy.get('select').select(1).should('have.value', 'blog')
+}) 
